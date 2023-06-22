@@ -1,31 +1,29 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
-import { GetAllTasks } from "../api/tasks.api";
-import {TaskCard} from "./TaskCard";
+import { useEffect, useState } from 'react'
+import { GetAllTasks } from '../api/tasks.api'
+import { TaskCard } from './TaskCard'
 
-export default function TaskList() {
-  const [tasks, setTasks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function TaskList () {
+  const [tasks, setTasks] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    async function getTasks() {
-      const res = await GetAllTasks();
-      setTasks(res.data);
-      setIsLoading(false);
+    async function getTasks () {
+      const res = await GetAllTasks()
+      setTasks(res.data)
+      setIsLoading(false)
     }
-    getTasks();
-  }, []);
+    getTasks()
+  }, [])
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>Loading...</p>
   } else {
     return (
-      <div>
-        <h1>Tasks</h1>
+      <div className="grid grid-cols-4 gap-3 ">
         {tasks?.map((task) => (
           <TaskCard key={task.id} task={task} />
         ))}
       </div>
-    );
+    )
   }
 }
